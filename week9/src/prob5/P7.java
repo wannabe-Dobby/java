@@ -22,12 +22,12 @@ public class P7 extends JFrame {
 		c.add(pn, BorderLayout.NORTH);
 		c.add(ps, BorderLayout.SOUTH);
 		
-		JLabel l1=new JLabel("수십입력");
+		JLabel l1=new JLabel("수식입력");
 		JTextField tf1=new JTextField(10);
 		pn.add(l1);
 		pn.add(tf1);
 		
-		JLabel l2=new JLabel("계산결과");
+		JLabel l2=new JLabel("계산 결과");
 		JTextField tf2=new JTextField(10);
 		ps.add(l2);
 		ps.add(tf2);
