@@ -32,14 +32,14 @@ public class P7 extends JFrame {
 		ps.add(l2);
 		ps.add(tf2);
 		
-		for(int i=0; i<16; i++) {
+		for(int i = 0; i < 16; i++) {
 			JButton b = new JButton();
 			String[] str = {"CE","계산","+","-","x","/"};
 			pc.add(b);
 			if(i < 10) {
 				b.setText(i+"");
 			}else { 
-				b.setText(str[i-10]);
+				b.setText(str[i - 10]);
 			}
 			if(i > 11) {
 				b.setBackground(Color.CYAN);
