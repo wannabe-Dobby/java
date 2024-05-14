@@ -19,7 +19,7 @@ public class P4 extends JFrame{
 		
 		c.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+				if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					s = s.substring(1) + s.substring(0, 1);
 					la.setText(s);
 				}
