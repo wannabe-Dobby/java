@@ -5,7 +5,7 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class ComboActionEx extends JFrame {
-	private String [] fruits = {"apple", "banana", "kiwi", "mango", "pear", "peach", "berry", "strawberry", "blackberry"};
+	private String [] fruits = {"apple", "banana", "kiwi", "mango"};
 	private ImageIcon [] images = {
 			new ImageIcon("images/apple.jpg"),
 			new ImageIcon("images/banana.jpg"),

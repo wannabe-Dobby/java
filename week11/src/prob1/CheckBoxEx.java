@@ -23,6 +23,9 @@ public class CheckBoxEx extends JFrame {
 		c.add(apple);
 		c.add(pear);
 		c.add(cherry);
+		
+		setSize(250, 150);
+		setVisible(true);
 	}
 
 	public static void main(String[] args) {

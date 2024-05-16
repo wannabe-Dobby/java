@@ -11,7 +11,7 @@ public class RadioButtonEx extends JFrame {
 		c.setLayout(new FlowLayout());
 		
 		ImageIcon cherryIcon = new ImageIcon("images/cherry.jpg");
-		ImageIcon selectedCherryIcon = new ImageIcon("images/selectCherry.jpg");
+		ImageIcon selectedCherryIcon = new ImageIcon("images/selectedCherry.jpg");
 		
 		ButtonGroup g = new ButtonGroup();
 		

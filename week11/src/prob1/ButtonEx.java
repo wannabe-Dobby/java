@@ -17,6 +17,7 @@ public class ButtonEx extends JFrame {
 		JButton btn = new JButton("call~~", normalIcon);
 		btn.setPressedIcon(pressedIcon);
 		btn.setRolloverIcon(rolloverIcon);
+		c.add(btn);
 		
 		setSize(250, 150);
 		setVisible(true);

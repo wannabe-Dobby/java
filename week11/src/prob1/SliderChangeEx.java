@@ -46,8 +46,7 @@ public class SliderChangeEx extends JFrame {
 		}
 
 	class MyChangeListener implements ChangeListener {
-		public void  stateChange(ChangeEvent e) {
-			
+		public void  stateChanged(ChangeEvent e) {
 			int r = sl[0].getValue();
 			int g = sl[1].getValue();
 			int b = sl[2].getValue();
