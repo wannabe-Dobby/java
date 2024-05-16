@@ -20,7 +20,7 @@ public class P10 extends JFrame {
 			num[i].setSize(10,10);
 			num[i].addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
-					JLabel temp=(JLabel)e.getSource();
+					JLabel temp = (JLabel)e.getSource();
 					int num = Integer.parseInt(temp.getText());
 					if(num == nowindex) {
 						temp.setVisible(false);
@@ -41,7 +41,7 @@ public class P10 extends JFrame {
 	
 	public void setting() {
 		nowindex = 0;
-		for(int i = 0;i<10;i++) {
+		for(int i = 0; i < 10; i++) {
 			int x = (int)(Math.random() * 300);
 			int y = (int)(Math.random() * 300);
 			
@@ -53,4 +53,4 @@ public class P10 extends JFrame {
 	public static void main(String[] args) {
 		new P10();
 	}
-}
+} 
