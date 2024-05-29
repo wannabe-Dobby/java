@@ -11,7 +11,7 @@ class TodoItem {	// 할 일 목록을 만들기 위한 항목
 		this.isComplete = false;
 	}
 	
-	public boolean isComplete() {	// task 완료 여부 반
+	public boolean isComplete() {	// task 완료 여부 반환
 		return isComplete;
 	}
 	
