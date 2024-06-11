@@ -84,6 +84,26 @@ public class FinalExam extends JFrame {
 		JMenuItem textItem = new JMenuItem("Text");
 		JMenuItem freeLineItem = new JMenuItem("FreeLine");
 
+		
+		
+		// 규격화해서 그릴 때 사용 (자유롭게 그릴 경우 주석 처리해야 함)
+		
+	    open2Item.addActionListener(e -> new DrawingApp());
+	    colorItem.addActionListener(e -> DrawingApp.setCurrentColor(JColorChooser.showDialog(null, "색 선택", Color.BLACK)));
+	    lineItem.addActionListener(e -> DrawingApp.setCurrentShape(DrawingApp.Shape.LINE));
+	    rectItem.addActionListener(e -> DrawingApp.setCurrentShape(DrawingApp.Shape.RECTANGLE));
+	    ovalItem.addActionListener(e -> DrawingApp.setCurrentShape(DrawingApp.Shape.OVAL));
+	    rndRectItem.addActionListener(e -> DrawingApp.setCurrentShape(DrawingApp.Shape.ROUNDED_RECTANGLE));
+	    textItem.addActionListener(e -> DrawingApp.setCurrentShape(DrawingApp.Shape.TEXT));
+	    freeLineItem.addActionListener(e -> DrawingApp.setCurrentShape(DrawingApp.Shape.FREELINE));
+		
+	    //
+	    
+		
+	    /*
+		
+		// 자유롭게 그리는 경우 주석 풀기
+		
 		open2Item.addActionListener(e -> new DrawingApp());
 		colorItem.addActionListener(e -> DrawingApp.setColor());
 		lineItem.addActionListener(e -> DrawingApp.setMode("Line"));
@@ -92,6 +112,7 @@ public class FinalExam extends JFrame {
 		rndRectItem.addActionListener(e -> DrawingApp.setMode("RndRect"));
 		textItem.addActionListener(e -> DrawingApp.setMode("Text"));
 		freeLineItem.addActionListener(e -> DrawingApp.setMode("FreeLine"));
+		*/
 
 		menu3.add(open2Item);
 		menu3.addSeparator(); // 분리선 삽입
@@ -114,8 +135,8 @@ public class FinalExam extends JFrame {
 	    gameStartItem.addActionListener(new GameStartActionListener()); // 게임 시작 리스너 추가
 	    menu4.add(gameStartItem);
 	    //
+	   
 	    
-		
 		// menu4.add(new JMenuItem("4. 계산기"));
 		
 		// 4번 문제를 위해 추가
@@ -154,7 +175,9 @@ public class FinalExam extends JFrame {
 	}
 
 	
-	// 3번 문제를 위해 추가
+	/*
+	
+	// 3번 문제를 위해 추가 (아래에것 사용해도 되는듯한데 잘 모르겠음)
 	class GameStartActionListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
 	        // 시작 시간 측정
@@ -176,6 +199,18 @@ public class FinalExam extends JFrame {
 	    }
 	}
 	//
+	
+	*/
+	
+	
+	// 3번 문제를 위해 추가
+	class GameStartActionListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+	        SwingUtilities.invokeLater(() -> {
+	            new Game().setVisible(true);
+	        });
+	    }
+	}
 	
 	
 	// 4번 문제를 위해 추가

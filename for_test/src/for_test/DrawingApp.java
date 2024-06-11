@@ -1,5 +1,254 @@
 package for_test;
 
+// 텍스트 입력 받아 입력할 수 있는 버전 (텍스트 겉에 틀 없음 / 다른 버전들은 틀 있음)
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class DrawingApp extends JFrame {
+    private DrawingPanel drawingPanel = new DrawingPanel();
+    private static Color currentColor = Color.BLACK;
+    private static Shape currentShape = Shape.LINE;
+    private static String inputText = "Text";
+
+    public enum Shape {
+        LINE, RECTANGLE, OVAL, ROUNDED_RECTANGLE, TEXT, FREELINE
+    }
+
+    public DrawingApp() {
+        setTitle("Drawing Application");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setContentPane(drawingPanel);
+        setSize(600, 400);
+        setVisible(true);
+    }
+
+    public static void setCurrentColor(Color color) {
+        currentColor = color;
+    }
+
+    public static void setCurrentShape(Shape shape) {
+        currentShape = shape;
+        if (shape == Shape.TEXT) {
+            inputText = JOptionPane.showInputDialog("Enter the text to display:");
+        }
+    }
+
+    class DrawingPanel extends JPanel {
+        private ArrayList<Drawable> drawables = new ArrayList<>();
+        private Point startPoint, endPoint;
+
+        DrawingPanel() {
+            setBackground(Color.WHITE);
+            MouseAdapter mouseAdapter = new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    startPoint = e.getPoint();
+                    if (currentShape != Shape.FREELINE) {
+                        endPoint = startPoint;
+                    }
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    if (currentShape != Shape.FREELINE) {
+                        endPoint = e.getPoint();
+                        drawables.add(new Drawable(currentShape, startPoint, endPoint, currentColor, inputText));
+                        repaint();
+                    }
+                }
+
+                public void mouseDragged(MouseEvent e) {
+                    if (currentShape == Shape.FREELINE) {
+                        endPoint = e.getPoint();
+                        drawables.add(new Drawable(Shape.FREELINE, startPoint, endPoint, currentColor, inputText));
+                        startPoint = endPoint;
+                        repaint();
+                    }
+                }
+            };
+            addMouseListener(mouseAdapter);
+            addMouseMotionListener(mouseAdapter);
+        }
+
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            for (Drawable d : drawables) {
+                g.setColor(d.color);
+                switch (d.shape) {
+                    case LINE:
+                        g.drawLine(d.startPoint.x, d.startPoint.y, d.endPoint.x, d.endPoint.y);
+                        break;
+                    case RECTANGLE:
+                        g.drawRect(Math.min(d.startPoint.x, d.endPoint.x), Math.min(d.startPoint.y, d.endPoint.y),
+                                Math.abs(d.endPoint.x - d.startPoint.x), Math.abs(d.endPoint.y - d.startPoint.y));
+                        break;
+                    case OVAL:
+                        g.drawOval(Math.min(d.startPoint.x, d.endPoint.x), Math.min(d.startPoint.y, d.endPoint.y),
+                                Math.abs(d.endPoint.x - d.startPoint.x), Math.abs(d.endPoint.y - d.startPoint.y));
+                        break;
+                    case ROUNDED_RECTANGLE:
+                        g.drawRoundRect(Math.min(d.startPoint.x, d.endPoint.x), Math.min(d.startPoint.y, d.endPoint.y),
+                                Math.abs(d.endPoint.x - d.startPoint.x), Math.abs(d.endPoint.y - d.startPoint.y),
+                                20, 20);
+                        break;
+                    case TEXT:
+                        g.drawString(d.text, d.startPoint.x, d.startPoint.y);
+                        break;
+                    case FREELINE:
+                        g.drawLine(d.startPoint.x, d.startPoint.y, d.endPoint.x, d.endPoint.y);
+                        break;
+                }
+            }
+        }
+    }
+
+    class Drawable {
+        Shape shape;
+        Point startPoint, endPoint;
+        Color color;
+        String text;
+
+        Drawable(Shape shape, Point startPoint, Point endPoint, Color color, String text) {
+            this.shape = shape;
+            this.startPoint = startPoint;
+            this.endPoint = endPoint;
+            this.color = color;
+            this.text = text;
+        }
+    }
+
+    public static void main(String[] args) {
+        new DrawingApp();
+    }
+}
+
+
+
+/*
+
+// 자유롭게 그림 그리는 버전
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class DrawingApp extends JFrame {
+    private DrawingPanel drawingPanel = new DrawingPanel();
+    private static Color currentColor = Color.BLACK;
+    private static Shape currentShape = Shape.LINE;
+
+    public enum Shape {
+        LINE, RECTANGLE, OVAL, ROUNDED_RECTANGLE, TEXT, FREELINE
+    }
+
+    public DrawingApp() {
+        setTitle("Drawing Application");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setContentPane(drawingPanel);
+        setSize(600, 400);
+        setVisible(true);
+    }
+
+    public static void setCurrentColor(Color color) {
+        currentColor = color;
+    }
+
+    public static void setCurrentShape(Shape shape) {
+        currentShape = shape;
+    }
+
+    class DrawingPanel extends JPanel {
+        private ArrayList<Drawable> drawables = new ArrayList<>();
+        private Point startPoint, endPoint;
+
+        DrawingPanel() {
+            setBackground(Color.WHITE);
+            MouseAdapter mouseAdapter = new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    startPoint = e.getPoint();
+                    if (currentShape != Shape.FREELINE) {
+                        endPoint = startPoint;
+                    }
+                }
+
+                public void mouseReleased(MouseEvent e) {
+                    if (currentShape != Shape.FREELINE) {
+                        endPoint = e.getPoint();
+                        drawables.add(new Drawable(currentShape, startPoint, endPoint, currentColor));
+                        repaint();
+                    }
+                }
+
+                public void mouseDragged(MouseEvent e) {
+                    if (currentShape == Shape.FREELINE) {
+                        endPoint = e.getPoint();
+                        drawables.add(new Drawable(Shape.FREELINE, startPoint, endPoint, currentColor));
+                        startPoint = endPoint;
+                        repaint();
+                    }
+                }
+            };
+            addMouseListener(mouseAdapter);
+            addMouseMotionListener(mouseAdapter);
+        }
+
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            for (Drawable d : drawables) {
+                g.setColor(d.color);
+                switch (d.shape) {
+                    case LINE:
+                        g.drawLine(d.startPoint.x, d.startPoint.y, d.endPoint.x, d.endPoint.y);
+                        break;
+                    case RECTANGLE:
+                        g.drawRect(Math.min(d.startPoint.x, d.endPoint.x), Math.min(d.startPoint.y, d.endPoint.y),
+                                Math.abs(d.endPoint.x - d.startPoint.x), Math.abs(d.endPoint.y - d.startPoint.y));
+                        break;
+                    case OVAL:
+                        g.drawOval(Math.min(d.startPoint.x, d.endPoint.x), Math.min(d.startPoint.y, d.endPoint.y),
+                                Math.abs(d.endPoint.x - d.startPoint.x), Math.abs(d.endPoint.y - d.startPoint.y));
+                        break;
+                    case ROUNDED_RECTANGLE:
+                        g.drawRoundRect(Math.min(d.startPoint.x, d.endPoint.x), Math.min(d.startPoint.y, d.endPoint.y),
+                                Math.abs(d.endPoint.x - d.startPoint.x), Math.abs(d.endPoint.y - d.startPoint.y),
+                                20, 20);
+                        break;
+                    case TEXT:
+                        g.drawString("Text", d.startPoint.x, d.startPoint.y);
+                        break;
+                    case FREELINE:
+                        g.drawLine(d.startPoint.x, d.startPoint.y, d.endPoint.x, d.endPoint.y);
+                        break;
+                }
+            }
+        }
+    }
+
+    class Drawable {
+        Shape shape;
+        Point startPoint, endPoint;
+        Color color;
+
+        Drawable(Shape shape, Point startPoint, Point endPoint, Color color) {
+            this.shape = shape;
+            this.startPoint = startPoint;
+            this.endPoint = endPoint;
+            this.color = color;
+        }
+    }
+
+    public static void main(String[] args) {
+        new DrawingApp();
+    }
+}
+
+*/
+
+
+/*
+
 // 자유롭게 그려지고 색은 바꾼 전/후가 다른 버전
 
 import javax.swing.*;
@@ -171,7 +420,7 @@ public class DrawingApp extends JFrame {
     }
 }
 
-
+*/
 
 
 
