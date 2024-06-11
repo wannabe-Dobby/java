@@ -84,14 +84,14 @@ public class FinalExam extends JFrame {
 		JMenuItem textItem = new JMenuItem("Text");
 		JMenuItem freeLineItem = new JMenuItem("FreeLine");
 
-		open2Item.addActionListener(new MenuActionListener("Open"));
-		colorItem.addActionListener(new MenuActionListener("Color"));
-		lineItem.addActionListener(new MenuActionListener("Line"));
-		rectItem.addActionListener(new MenuActionListener("Rect"));
-		ovalItem.addActionListener(new MenuActionListener("Oval"));
-		rndRectItem.addActionListener(new MenuActionListener("RndRect"));
-		textItem.addActionListener(new MenuActionListener("Text"));
-		freeLineItem.addActionListener(new MenuActionListener("FreeLine"));
+		open2Item.addActionListener(e -> new DrawingApp());
+		colorItem.addActionListener(e -> DrawingApp.setColor());
+		lineItem.addActionListener(e -> DrawingApp.setMode("Line"));
+		rectItem.addActionListener(e -> DrawingApp.setMode("Rect"));
+		ovalItem.addActionListener(e -> DrawingApp.setMode("Oval"));
+		rndRectItem.addActionListener(e -> DrawingApp.setMode("RndRect"));
+		textItem.addActionListener(e -> DrawingApp.setMode("Text"));
+		freeLineItem.addActionListener(e -> DrawingApp.setMode("FreeLine"));
 
 		menu3.add(open2Item);
 		menu3.addSeparator(); // 분리선 삽입
